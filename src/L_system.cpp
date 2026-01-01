@@ -60,7 +60,7 @@ void L_system::iterate()
             // production p1
             if (std::stoi(params.at(0)) < 0)
             {
-                break; // do not add a module to the result string
+                break; // do not add a module to the result string (delete current module)
             }
 
             if (i+1 < modules.size())
@@ -73,13 +73,26 @@ void L_system::iterate()
                     if (state == "SUCCEED")
                     {
                         // global goals
+
+                        // newParams:
+                        // 0 : pDel[0-2]
+                        // 1 : pRuleAttr[0-2]
+                        // 2 : pRoadAttr[0-2]
+                        vector<vector<str>> newParams = this.globalGoals(params.at(1), I_roadAttr);
+                        string I_roadAttr = splitString(splitString(nextModule, ":").at(1), ",").at(0);
+                        temp_L_string += "+(" + splitString(I_roadAttr, " ").at(0)+ ");"; // turn right by roadAttr.angle
+                        temp_L_string += "F(" + splitString(I_roadAttr, " ").at(1) + ");"; // go forward by roadAttr.length
+                        temp_L_string += "B(" + newParams.at(0).at(1) + "," + newParams.at(1).at(1) + "," + newParams.at(2).at(1) + ");";
+                        temp_L_string += "B(" + newParams.at(0).at(2) + "," + newParams.at(1).at(2) + "," + newParams.at(2).at(2) + ");";
+                        temp_L_string += "R(" + newParams.at(0).at(0) + "," + newParams.at(1).at(0) + ");";
+                        temp_L_string += "I(" + newParams.at(2).at(0) + ",UNASSIGNED);";
                         break;
                     }
 
                     //production p3
                     if (state == FAILED)
                     {
-                        break; // do not add a module to the result string
+                        break; // do not add a module to the result string (delete current module)
                     }
                 }
             }
@@ -104,14 +117,14 @@ void L_system::iterate()
                 temp_L_string += "[" +
                                                     "R:" + params.at(0) + "," + params.at(1) + ";" +
                                                     "I:" + params.at(2) + "," + "UNASSIGNED" + ";" +
-                                            "]"
+                                            "]";
                 break;
             }
 
             //production p6
             if (std::stoi(params.at(0)) < 0)
             {
-                break; // do not add a module to the result string
+                break; // do not add a module to the result string (delete current module)
             }
 
             break;
@@ -126,23 +139,27 @@ void L_system::iterate()
                 string delPrev = splitString(splitString(modules.at(i-1), ":").at(1), ",").at[0];
                 if (std::stoi(delPrev) < 0)
                 {
-                    break; // do not add a module to the result string
+                    break; // do not add a module to the result string (delete current module)
                 }
             }
 
-            if  (params.at(0) == "UNASSIGNED") // production p8
+            if  (params.at(1) == "UNASSIGNED") // production p8
             {
                 // local constraints
+                string updatedParams = this.localConstraints(params.at(0));
+                temp_L_string += "I:" + updatedParams + ";";
                 break;
             }
             else // production p9
             {
-                break; // do not add a module to the result string
+                break; // do not add a module to the result string (delete current module)
             }
 
             break;
 
         default:
+            // add same module = do nothing
+            temp_L_string += module;
             break;
         }
     }
