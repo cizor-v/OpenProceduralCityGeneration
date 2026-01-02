@@ -16,7 +16,13 @@ class L_system
         string getString();
 
     private:
+        // input data maps
         string popDensity_map_path;
+        string height_map_path;
+        string streetPattern_map_path;
+        string land_map_path;
+        string zoning_map_path;
+        string buildHeight_map_path;
 
         // result string
         string L_string;

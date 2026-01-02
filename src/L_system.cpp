@@ -4,6 +4,7 @@ L_system::L_system(string popDensityMap)
 {
     //constructor
     this.popDensity_map_path = popDensityMap;
+    this.L_string = ""; // Axiom with initial road parameters
 }
 
 L_system::~L_system()
@@ -28,6 +29,7 @@ vector<string> L_system::splitString(string str, string delimiter)
 vector<vector<string>> L_system::globalGoals(string ruleAttr, string roadAttr)
 {
     // create parameters for pDel[0-2], pRuleAttr[0-2], pRoadAttr[0-2]
+    ;
 }
 
 string L_system::localConstraints(string roadAttr)
