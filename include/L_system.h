@@ -18,11 +18,15 @@ class L_system
     private:
         // input data maps
         string popDensity_map_path;
+        char* popDensityMap;
         string height_map_path;
         string streetPattern_map_path;
         string land_map_path;
         string zoning_map_path;
         string buildHeight_map_path;
+
+        int mapWidth;
+        int mapHeight;
 
         // result string
         string L_string;

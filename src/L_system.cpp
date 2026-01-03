@@ -26,10 +26,31 @@ vector<string> L_system::splitString(string str, string delimiter)
     return modules;
 }
 
-vector<vector<string>> L_system::globalGoals(string ruleAttr, string roadAttr)
+vector<vector<string>> L_system::globalGoals(string ruleAttr, string roadAttr) // create parameters for pDel[0-2], pRuleAttr[0-2], pRoadAttr[0-2]
 {
-    // create parameters for pDel[0-2], pRuleAttr[0-2], pRoadAttr[0-2]
-    ;
+    // retrieve attribute values
+    vector<string> vec_roadAttr = splitString(roadAttr, ' ');
+    vector<string> vec_ruleAttr = splitString(ruleAttr, ' ');
+    float angle, length, posx, posy, dirx, diry;
+    // road attributes
+    angle = std::stof(vec_roadAttr.at(0));
+    length = std::stof(vec_roadAttr.at(1));
+    bool isHighway = vec_roadAttr.at(2) == "TRUE";
+    //rule attributes
+    posx = std::stof(vec_ruleAttr.at(0));
+    posy = std::stof(vec_ruleAttr.at(1));
+    dirx = std::stof(vec_ruleAttr.at(2));
+    diry = std::stof(vec_ruleAttr.at(3));
+
+    if (isHighway) // highway
+    {
+        ;
+    }
+    else // street
+    {
+        ;
+    }
+
 }
 
 string L_system::localConstraints(string roadAttr)
