@@ -1,16 +1,133 @@
-// #include "L_system.h"
+#include "L_system.h"
 
-// L_system::L_system(std::string popDensityMap)
-// {
-//     //constructor
-//     this->popDensity_map_path = popDensityMap;
-//     this->L_string = ""; // Axiom with initial road parameters
-// }
+L_system::L_system(std::string popDensityMap)
+{
+    //constructor
+    this->popDensity_map_path = popDensityMap;
+    // this->L_string = ""; // Axiom with initial road parameters
+}
 
-// L_system::~L_system()
-// {
-//     //dtor
-// }
+L_system::~L_system()
+{
+    //dtor
+}
+
+// delete road module
+void L_system::prod1(std::vector<module> * output)
+{
+    ; // deletion
+}
+
+// initialize parameters
+void L_system::prod2(std::vector<module> * output, roadAttributes roadAttr, ruleAttributes ruleAttr)
+{
+    module turn, forward, branch1, branch2, road, query;
+
+    turn.eType = moduleType::turn;
+    forward.eType = moduleType::forward;
+    turn.sRoadAttrib = forward.sRoadAttrib = roadAttr;
+
+    output->push_back(turn);
+    output->push_back(forward);
+
+    std::vector<module> globals = this->globalGoals(roadAttr, ruleAttr);
+
+    branch1.eType = branch2.eType = moduleType::branch;
+
+    branch1.iDel = globals.at(1).iDel;
+    branch1.sRoadAttrib = globals.at(1).sRoadAttrib;
+    branch1.sRuleAttrib = globals.at(1).sRuleAttrib;
+
+    branch2.iDel = globals.at(2).iDel;
+    branch2.sRoadAttrib = globals.at(2).sRoadAttrib;
+    branch2.sRuleAttrib = globals.at(2).sRuleAttrib;
+
+    road.eType = moduleType::road;
+    road.iDel = globals.at(0).iDel;
+    road.sRuleAttrib = globals.at(0).sRuleAttrib;
+
+    query.eType = moduleType::query;
+    query.eState = state::UNASSIGNED;
+    query.sRoadAttrib = globals.at(0).sRoadAttrib;
+
+    output->push_back(branch1);
+    output->push_back(branch2);
+    output->push_back(road);
+    output->push_back(query);
+}
+
+// delete road module
+void L_system::prod3(std::vector<module> * output)
+{
+    ; // deletion
+}
+
+// decrement branch module's del
+void L_system::prod4(std::vector<module> * output, module input)
+{
+    input.iDel -= 1;
+    output->push_back(input);
+}
+
+// branching
+void L_system::prod5(std::vector<module> * output, module input)
+{
+    module road, query;
+
+    road.eType = moduleType::road;
+    road.iDel = input.iDel;
+    road.sRuleAttrib = input.sRuleAttrib;
+
+    query.eType = moduleType::query;
+    query.eState = state::UNASSIGNED;
+    query.sRoadAttrib = input.sRoadAttrib;
+
+    road.fPosX = query.fPosX = input.fPosX;
+    road.fPosY = query.fPosY = input.fPosY;
+
+    output->push_back(road);
+    output->push_back(query);
+}
+
+// delete branch module
+void L_system::prod6(std::vector<module> * output)
+{
+    ; // deletion
+}
+
+// delete query module
+void L_system::prod7(std::vector<module> * output)
+{
+    ; // deletion
+}
+
+// adjust parameters
+void L_system::prod8(std::vector<module> * output, module input)
+{
+    std::pair<state, roadAttributes> locals = localConstraints(input.sRoadAttrib);
+
+    input.eState = locals.first;
+    input.sRoadAttrib = locals.second;
+
+    output->push_back(input);
+}
+
+// delete query module
+void L_system::prod9(std::vector<module> * output)
+{
+    ; // deletion
+}
+
+std::vector<module> globalGoals(roadAttributes roadAttr, ruleAttributes ruleAttr)
+{
+    ;
+}
+
+std::pair<state, roadAttributes> localConstraints(roadAttributes roadAttr)
+{
+    ;
+}
+
 
 // std::vector<std::string> L_system::splitString(std::string str, char delimiter)
 // {
