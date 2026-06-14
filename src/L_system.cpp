@@ -104,7 +104,7 @@ void L_system::prod7(std::vector<module> * output)
 // adjust parameters
 void L_system::prod8(std::vector<module> * output, module input)
 {
-    std::pair<state, roadAttributes> locals = localConstraints(input.sRoadAttrib);
+    std::pair<state, roadAttributes> locals = this->localConstraints(input.sRoadAttrib);
 
     input.eState = locals.first;
     input.sRoadAttrib = locals.second;
@@ -118,12 +118,12 @@ void L_system::prod9(std::vector<module> * output)
     ; // deletion
 }
 
-std::vector<module> globalGoals(roadAttributes roadAttr, ruleAttributes ruleAttr)
+std::vector<module> L_system::globalGoals(roadAttributes roadAttr, ruleAttributes ruleAttr)
 {
     ;
 }
 
-std::pair<state, roadAttributes> localConstraints(roadAttributes roadAttr)
+std::pair<state, roadAttributes> L_system::localConstraints(roadAttributes roadAttr)
 {
     ;
 }
