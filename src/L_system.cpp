@@ -1,9 +1,10 @@
 #include "L_system.h"
 
-L_system::L_system(std::string popDensityMap)
+L_system::L_system(std::string popDensityMap, std::string landMap)
 {
     //constructor
     this->popDensity_map_path = popDensityMap;
+    this->land_map_path = landMap;
     // this->L_string = ""; // Axiom with initial road parameters
 }
 

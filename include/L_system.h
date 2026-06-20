@@ -51,7 +51,7 @@ struct module
 class L_system
 {
     public:
-        L_system(std::string popDensityMap);
+        L_system(std::string popDensityMap, std::string landMap);
         virtual ~L_system();
 
         void iterate(); // one full loop over the "L-string"
