@@ -1,19 +1,25 @@
-#include <iostream>
-#include "turtle.hpp"
-using namespace std;
+#include "mainwindow.h"
 
-int main() {
+#include <QApplication>
+#include <QLocale>
+#include <QTranslator>
 
-    Turtle turtle(1000, 1000);
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
 
-    turtle.setPenColor(0,0,0);
-    turtle.drawCircle(50, 50, 10);
-    turtle.drawCircle(0, 0, 10);
-    turtle.reset();
-    turtle.forward(50);
-    turtle.drawCircle(50, 50, 10);
-
-    turtle.saveBMP("image.bmp");
-
-    return 0;
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "OpenProceduralCityGeneration_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            a.installTranslator(&translator);
+            break;
+        }
+    }
+    MainWindow w;
+    w.setWindowTitle("OpenProceduralCityGenerator");
+    w.setWindowState(Qt::WindowMaximized);
+    w.show();
+    return a.exec();
 }
