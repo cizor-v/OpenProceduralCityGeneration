@@ -47,3 +47,6 @@
 *.layout
 *.depend
 *.cbp
+
+# qt build folder
+./build/*
