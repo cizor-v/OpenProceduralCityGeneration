@@ -3,8 +3,8 @@
 L_system::L_system(std::string popDensityMap, std::string landMap)
 {
     //constructor
-    this->popDensity_map_path = popDensityMap;
-    this->land_map_path = landMap;
+    this->popDensity.path = popDensityMap;
+    this->LandMap.path = landMap;
     // this->L_string = ""; // Axiom with initial road parameters
 }
 
@@ -102,7 +102,7 @@ void L_system::prod7(std::vector<module> * output)
     ; // deletion
 }
 
-// adjust parameters
+// adjust parameters (input is a query module)
 void L_system::prod8(std::vector<module> * output, module input)
 {
     std::pair<state, roadAttributes> locals = this->localConstraints(input.sRoadAttrib);
@@ -121,7 +121,24 @@ void L_system::prod9(std::vector<module> * output)
 
 std::vector<module> L_system::globalGoals(roadAttributes roadAttr, ruleAttributes ruleAttr)
 {
-    ;
+    std::vector<module> res;
+
+    if (ruleAttr.isHighway)
+    {
+        // follow gradient of population density
+        float max = 0.0;
+        int maxId;
+        for (int i = 0; i < 9; i++)
+        {
+            ;
+        }
+    }
+    else
+    {
+        // follow street pattern
+    }
+
+    return res;
 }
 
 std::pair<state, roadAttributes> L_system::localConstraints(roadAttributes roadAttr)

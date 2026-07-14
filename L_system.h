@@ -24,6 +24,8 @@ struct roadAttributes
 {
     float fLength;
     float fAngle;
+
+    float heading;
 };
 
 struct ruleAttributes
@@ -46,6 +48,14 @@ struct module
 
 };
 
+struct infoMap
+{
+    std::string path;
+    char* map;
+    int width;
+    int height;
+};
+
 class L_system
 {
     public:
@@ -63,14 +73,10 @@ class L_system
 
     private:
         // input data maps
-        std::string popDensity_map_path;
-        char* popDensityMap;
-        std::string height_map_path;
-        char* heightMap;
-        std::string streetPattern_map_path;
-        char* streetPatternMap;
-        std::string land_map_path;
-        char* landMap;
+        infoMap popDensity;
+        infoMap heightMap;
+        infoMap LandMap;
+        infoMap streetPatterns;
 
         // for later (building generation):
         // std::string zoning_map_path;
